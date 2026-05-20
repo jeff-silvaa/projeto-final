@@ -1,6 +1,6 @@
-import { ImageBackground, StyleSheet, Text, View } from 'react-native';
-import React from 'react';
 import { useRouter } from 'expo-router';
+import { useState } from 'react';
+import { ImageBackground, StyleSheet, Text, TextInput, View } from 'react-native';
 import PillButton from './PillButton';
 import TimerDisplay from './TimerDisplay';
 
@@ -24,6 +24,7 @@ interface TimerScreenProps {
 
 export default function TimerScreen({ isRunning, onStart, onPause, onReset, timer }: TimerScreenProps) {
   const router = useRouter();
+  const [activityName, setActivityName] = useState('');
 
   return (
     <ImageBackground source={require('../assets/night-sky.jpg')} style={styles.background} resizeMode="cover">
@@ -36,7 +37,13 @@ export default function TimerScreen({ isRunning, onStart, onPause, onReset, time
         </View>
 
         <View style={styles.content}>
-          <Text style={styles.activityName}>Nome da Atividade</Text>
+          <TextInput
+                    style={styles.activityName}
+                    placeholder="Nome da Atividade"
+                    placeholderTextColor="rgba(255,255,255,0.5)"
+                    value={activityName}
+                    onChangeText={setActivityName}
+/>
           <TimerDisplay
             formattedTime={timer.formattedTime}
             currentCycle={timer.currentCycle}
